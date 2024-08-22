@@ -1,41 +1,70 @@
-import React from "react";
-import { StyleSheet, Text, View, Image } from "react-native";
+import { Image, StyleSheet, Platform } from 'react-native';
 
-export default function Profile() {
+import { HelloWave } from '@/components/HelloWave';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+
+export default function HomeScreen() {
   return (
-    <View style={styles.container}>
-      <Image
-        source={{
-          uri: "https://your-phttps://scontent.fsgn8-4.fna.fbcdn.net/v/t39.30808-6/219342202_102945122080470_84211212289614708_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeFKyOqdZG5S-Zu_cq_IKHzKJXli96aLNjgleWL3pos2ODRyVF3XARh7aMO3tPk5a-jE3Gj51OIN_EnAlgQx9Ok1&_nc_ohc=5GXRkVGhZiwQ7kNvgEn2I0p&_nc_pt=1&_nc_ht=scontent.fsgn8-4.fna&oh=00_AYAsQb7fmbHxM2S2tLHIlLhoPAfp96BZSoK39zPWOLUY5A&oe=66CC71F5rofile-image-url.com",
-        }}
-        style={styles.profileImage}
-      />
-      <Text style={styles.name}>Name: Vo Huu Tai</Text>
-      <Text style={styles.info}>Student ID: 21110294</Text>
-      <Text style={styles.info}>Contact: 21110294@student.hcmute.edu.vn</Text>
-    </View>
+    <ParallaxScrollView
+      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
+      headerImage={
+        <Image
+          source={require('@/assets/images/partial-react-logo.png')}
+          style={styles.reactLogo}
+        />
+      }>
+      <ThemedView style={styles.titleContainer}>
+        <ThemedText type="title">Welcome!</ThemedText>
+        <HelloWave />
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText>
+          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
+          Press{' '}
+          <ThemedText type="defaultSemiBold">
+            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
+          </ThemedText>{' '}
+          to open developer tools.
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
+        <ThemedText>
+          Tap the Explore tab to learn more about what's included in this starter app.
+        </ThemedText>
+      </ThemedView>
+      <ThemedView style={styles.stepContainer}>
+        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
+        <ThemedText>
+          When you're ready, run{' '}
+          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
+          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
+          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
+          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+        </ThemedText>
+      </ThemedView>
+    </ParallaxScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
+  titleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
   },
-  profileImage: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    marginBottom: 20,
+  stepContainer: {
+    gap: 8,
+    marginBottom: 8,
   },
-  name: {
-    fontSize: 24,
-    fontWeight: "bold",
-  },
-  info: {
-    fontSize: 18,
-    marginTop: 5,
+  reactLogo: {
+    height: 178,
+    width: 290,
+    bottom: 0,
+    left: 0,
+    position: 'absolute',
   },
 });
