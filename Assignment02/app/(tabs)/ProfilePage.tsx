@@ -42,7 +42,7 @@ export default function ProfilePage() {
       <Text>Email: 21110294@student.hcmute.edu.vn</Text>
       <Text>Phone: 0353199067</Text>
       <Text style={{ marginTop: 20 }}>
-        Sau {timeLeft} giây sẽ chuyển về trang Đăng nhập...
+        Dirrect to Login page after {timeLeft} seconds...
       </Text>
     </View>
   );

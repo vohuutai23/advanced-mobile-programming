@@ -22,16 +22,13 @@ export default function LoginPage() {
 
       if (response.ok) {
         const data = await response.json();
-        Alert.alert("Đăng nhập thành công!");
+        Alert.alert("Login succesful");
         router.push("/");
       } else {
-        Alert.alert(
-          "Đăng nhập thất bại",
-          "Vui lòng kiểm tra lại email và mật khẩu"
-        );
+        Alert.alert("Login fail!", "Please check email and password again!");
       }
     } catch (error) {
-      Alert.alert("Lỗi", "Có lỗi xảy ra. Vui lòng thử lại.");
+      Alert.alert("Error", "Errors are occurring. Please do again");
     }
   };
 
@@ -59,11 +56,11 @@ export default function LoginPage() {
         secureTextEntry
       />
       <View style={{ marginBottom: 20 }}>
-        <Button title="Đăng nhập" onPress={handleLogin} />
+        <Button title="Login" onPress={handleLogin} />
       </View>
       <View>
         <Button
-          title="Chưa có tài khoản? Đăng ký"
+          title="Do you have not an account? Register now"
           onPress={() => router.push("/(tabs)/RegisterPage")}
         />
       </View>

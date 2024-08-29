@@ -22,16 +22,13 @@ export default function RegisterPage() {
       );
 
       if (response.ok) {
-        Alert.alert(
-          "Đăng ký thành công!",
-          "Bạn có thể đăng nhập ngay bây giờ."
-        );
+        Alert.alert("Register succesful!", "You can log in rightnow.");
         router.push("/(tabs)/LoginPage");
       } else {
-        Alert.alert("Đăng ký thất bại", "Vui lòng kiểm tra lại thông tin.");
+        Alert.alert("Register fail", "Please check the information again.");
       }
     } catch (error) {
-      Alert.alert("Lỗi", "Có lỗi xảy ra. Vui lòng thử lại.");
+      Alert.alert("Error", "Errors are occurring. Please do again.");
     }
   };
 
@@ -65,11 +62,11 @@ export default function RegisterPage() {
         secureTextEntry
       />
       <View style={{ marginBottom: 20 }}>
-        <Button title="Đăng ký" onPress={handleRegister} />
+        <Button title="Register" onPress={handleRegister} />
       </View>
       <View>
         <Button
-          title="Đã có tài khoản? Đăng nhập"
+          title="Do you have an account? Log in now"
           onPress={() => router.push("/(tabs)/LoginPage")}
         />
       </View>

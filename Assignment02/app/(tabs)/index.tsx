@@ -36,7 +36,7 @@ export default function App() {
         style={{ width: 100, height: 100, borderRadius: 50 }}
       />
       <Text>Name: Võ Hữu Tài</Text>
-      <Text>Chào mừng đến với trang chủ</Text>
+      <Text>Welcome to Home page</Text>
 
       {/* Nút Logout */}
       <View style={{ marginTop: 20 }}>
