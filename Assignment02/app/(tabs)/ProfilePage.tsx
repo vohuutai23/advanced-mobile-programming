@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, StyleSheet } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function ProfilePage() {
@@ -26,24 +26,52 @@ export default function ProfilePage() {
   }, [router]);
 
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-      }}
-    >
-      <Image
-        source={avatar}
-        style={{ width: 100, height: 100, borderRadius: 50 }}
-      />
-      <Text>Name: Võ Hữu Tài</Text>
-      <Text>Email: 21110294@student.hcmute.edu.vn</Text>
-      <Text>Phone: 0353199067</Text>
-      <Text style={{ marginTop: 20 }}>
-        Dirrect to Login page after {timeLeft} seconds...
+    <View style={styles.container}>
+      <Image source={avatar} style={styles.avatar} />
+      <Text style={styles.name}>Võ Hữu Tài</Text>
+      <Text style={styles.email}>21110294@student.hcmute.edu.vn</Text>
+      <Text style={styles.phone}>Phone: 0353199067</Text>
+      <Text style={styles.timer}>
+        Redirecting to Login page in {timeLeft} seconds...
       </Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#f0f0f0",
+    padding: 20,
+  },
+  avatar: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    marginBottom: 20,
+  },
+  name: {
+    fontSize: 22,
+    fontWeight: "bold",
+    color: "#333",
+    marginBottom: 10,
+  },
+  email: {
+    fontSize: 16,
+    color: "#777",
+    marginBottom: 5,
+  },
+  phone: {
+    fontSize: 16,
+    color: "#777",
+    marginBottom: 20,
+  },
+  timer: {
+    marginTop: 20,
+    fontSize: 16,
+    color: "#FF6347",
+    fontStyle: "italic",
+  },
+});

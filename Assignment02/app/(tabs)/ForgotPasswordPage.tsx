@@ -3,37 +3,35 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   Alert,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { useRouter } from "expo-router";
 
-export default function RegisterPage() {
-  const [name, setName] = useState<string>("");
+export default function ForgotPasswordPage() {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
   const router = useRouter();
 
-  const handleRegister = async () => {
+  const handleForgotPassword = async () => {
     try {
       const response = await fetch(
-        "https://food-app-api-demo.onrender.com/api/users/",
+        "https://food-app-api-demo.onrender.com/api/users/forget-password",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name, email, password }),
+          body: JSON.stringify({ email }),
         }
       );
 
       if (response.ok) {
-        Alert.alert("Register successful!", "You can log in right now.");
-        router.push("/(tabs)/LoginPage");
+        Alert.alert("Success", "OTP sent to your email.");
+        // Redirect to ResetPasswordPage and pass the email as a parameter
+        router.push({ pathname: "/(tabs)/ResetPassword", params: { email } });
       } else {
-        Alert.alert("Register failed", "Please check the information again.");
+        Alert.alert("Error", "Failed to send OTP. Try again.");
       }
     } catch (error) {
       Alert.alert("Error", "An error occurred. Please try again.");
@@ -42,16 +40,8 @@ export default function RegisterPage() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Create Your Account</Text>
-      <Text style={styles.label}>Name</Text>
-      <TextInput
-        style={styles.input}
-        value={name}
-        onChangeText={setName}
-        placeholder="Enter your name"
-        placeholderTextColor="#aaa"
-      />
-      <Text style={styles.label}>Email</Text>
+      <Text style={styles.title}>Forgot Password</Text>
+      <Text style={styles.label}>Enter your email to reset your password</Text>
       <TextInput
         style={styles.input}
         value={email}
@@ -60,22 +50,8 @@ export default function RegisterPage() {
         placeholder="Enter your email"
         placeholderTextColor="#aaa"
       />
-      <Text style={styles.label}>Password</Text>
-      <TextInput
-        style={styles.input}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-        placeholder="Enter your password"
-        placeholderTextColor="#aaa"
-      />
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.push("/(tabs)/LoginPage")}>
-        <Text style={styles.loginText}>
-          Already have an account? Log in now
-        </Text>
+      <TouchableOpacity style={styles.button} onPress={handleForgotPassword}>
+        <Text style={styles.buttonText}>Send OTP</Text>
       </TouchableOpacity>
     </View>
   );
@@ -86,7 +62,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     padding: 20,
-    backgroundColor: "#f0f0f0",
+    backgroundColor: "white",
   },
   title: {
     fontSize: 24,
@@ -106,7 +82,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginBottom: 20,
     borderRadius: 5,
-    backgroundColor: "#fff",
+    backgroundColor: "#f9f9f9",
     color: "#333",
   },
   button: {
@@ -120,10 +96,5 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  loginText: {
-    color: "#4CAF50",
-    textAlign: "center",
-    fontSize: 16,
   },
 });
