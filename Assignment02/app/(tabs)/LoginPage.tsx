@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, Alert, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function LoginPage() {
@@ -29,9 +21,9 @@ export default function LoginPage() {
       );
 
       if (response.ok) {
-        const data = await response.json();
         Alert.alert("Login successful");
-        router.push("/");
+        // Điều hướng tới ProfilePage sau khi đăng nhập thành công
+        router.replace("/(tabs)/ProfilePage");
       } else {
         Alert.alert("Login failed!", "Please check email and password again!");
       }
@@ -41,20 +33,24 @@ export default function LoginPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Welcome Back!</Text>
-      <Text style={styles.label}>Email</Text>
+    <View className="flex-1 justify-center px-5 bg-white">
+      <Text className="text-2xl font-bold mb-8 text-center text-gray-800">
+        Welcome Back!
+      </Text>
+
+      <Text className="text-lg mb-2 text-gray-600">Email</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-4 mb-4 rounded bg-gray-50 text-gray-800"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
         placeholder="Enter your email"
         placeholderTextColor="#aaa"
       />
-      <Text style={styles.label}>Password</Text>
+
+      <Text className="text-lg mb-2 text-gray-600">Password</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-4 mb-4 rounded bg-gray-50 text-gray-800"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -62,78 +58,25 @@ export default function LoginPage() {
         placeholderTextColor="#aaa"
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TouchableOpacity
+        className="bg-cyan-800 p-4 rounded items-center mb-5"
+        onPress={handleLogin}
+      >
+        <Text className="text-white text-lg font-bold">Login</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={() => router.push("/(tabs)/RegisterPage")}>
-        <Text style={styles.registerText}>
+        <Text className="text-center text-blue-600 text-base">
           Don't have an account? Register now
         </Text>
       </TouchableOpacity>
-      {/* Forgot Password Button */}
+
       <TouchableOpacity
+        className="mt-5 items-center"
         onPress={() => router.push("/(tabs)/ForgotPasswordPage")}
-        style={styles.forgotPasswordButton}
       >
-        <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+        <Text className="text-teal-900 text-base">Forgot Password?</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 30,
-    textAlign: "center",
-    color: "#333",
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-    color: "#555",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    padding: 15,
-    marginBottom: 20,
-    borderRadius: 5,
-    backgroundColor: "#f9f9f9",
-    color: "#333",
-  },
-  forgotPasswordButton: {
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  forgotPasswordText: {
-    color: "#4CAF50",
-    textDecorationLine: "underline",
-    fontSize: 16,
-  },
-  button: {
-    backgroundColor: "#4CAF50",
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  registerText: {
-    color: "#4CAF50",
-    textAlign: "center",
-    fontSize: 16,
-  },
-});

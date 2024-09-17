@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Button,
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, Alert, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function RegisterPage() {
@@ -41,89 +33,52 @@ export default function RegisterPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Create Your Account</Text>
-      <Text style={styles.label}>Name</Text>
+    <View className="flex-1 justify-center p-5 bg-gray-100">
+      <Text className="text-2xl font-bold mb-8 text-center text-gray-800">
+        Create Your Account
+      </Text>
+
+      <Text className="text-lg mb-2 text-gray-600">Name</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-4 mb-4 rounded bg-white text-gray-800"
         value={name}
         onChangeText={setName}
         placeholder="Enter your name"
         placeholderTextColor="#aaa"
       />
-      <Text style={styles.label}>Email</Text>
+
+      <Text className="text-lg mb-2 text-gray-600">Email</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-4 mb-4 rounded bg-white text-gray-800"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
         placeholder="Enter your email"
         placeholderTextColor="#aaa"
       />
-      <Text style={styles.label}>Password</Text>
+
+      <Text className="text-lg mb-2 text-gray-600">Password</Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-4 mb-6 rounded bg-white text-gray-800"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
         placeholder="Enter your password"
         placeholderTextColor="#aaa"
       />
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Register</Text>
+
+      <TouchableOpacity
+        className="bg-cyan-800 p-4 rounded items-center mb-5"
+        onPress={handleRegister}
+      >
+        <Text className="text-white text-lg font-bold">Register</Text>
       </TouchableOpacity>
+
       <TouchableOpacity onPress={() => router.push("/(tabs)/LoginPage")}>
-        <Text style={styles.loginText}>
+        <Text className="text-teal-600 text-center">
           Already have an account? Log in now
         </Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "#f0f0f0",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 30,
-    textAlign: "center",
-    color: "#333",
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-    color: "#555",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    padding: 15,
-    marginBottom: 20,
-    borderRadius: 5,
-    backgroundColor: "#fff",
-    color: "#333",
-  },
-  button: {
-    backgroundColor: "#4CAF50",
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  loginText: {
-    color: "#4CAF50",
-    textAlign: "center",
-    fontSize: 16,
-  },
-});

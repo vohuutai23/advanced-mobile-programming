@@ -1,47 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, Button } from "react-native";
 import { useRouter } from "expo-router";
+import { useEffect } from "react";
 
-export default function App() {
+export default function Index() {
   const router = useRouter();
-  const [isMounted, setIsMounted] = useState(false);
-  const avatar = require("../../assets/images/avatar.jpg");
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    setTimeout(() => {
+      router.replace("/(tabs)/LoginPage");
+    }, 0);
+  }, [router]);
 
-  useEffect(() => {
-    if (isMounted) {
-      router.replace("/ProfilePage");
-    }
-  }, [isMounted, router]);
-
-  const handleLogout = () => {
-    // Bạn có thể thêm logic xóa token hoặc session ở đây nếu cần
-    router.replace("/(tabs)/LoginPage"); // Chuyển về trang đăng nhập
-  };
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-      }}
-    >
-      <Image
-        source={avatar}
-        style={{ width: 100, height: 100, borderRadius: 50 }}
-      />
-      <Text>Name: Võ Hữu Tài</Text>
-      <Text>Welcome to Home page</Text>
-
-      {/* Nút Logout */}
-      <View style={{ marginTop: 20 }}>
-        <Button title="Logout" onPress={handleLogout} />
-      </View>
-    </View>
-  );
+  return null;
 }

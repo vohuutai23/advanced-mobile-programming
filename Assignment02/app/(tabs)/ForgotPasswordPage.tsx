@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, TextInput, Alert, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
 
 export default function ForgotPasswordPage() {
@@ -28,7 +21,6 @@ export default function ForgotPasswordPage() {
 
       if (response.ok) {
         Alert.alert("Success", "OTP sent to your email.");
-        // Redirect to ResetPasswordPage and pass the email as a parameter
         router.push({ pathname: "/(tabs)/ResetPassword", params: { email } });
       } else {
         Alert.alert("Error", "Failed to send OTP. Try again.");
@@ -39,62 +31,27 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Forgot Password</Text>
-      <Text style={styles.label}>Enter your email to reset your password</Text>
+    <View className="flex-1 justify-center px-5 bg-white">
+      <Text className="text-2xl font-bold mb-8 text-center text-gray-800">
+        Forgot Password
+      </Text>
+      <Text className="text-base mb-2 text-gray-600">
+        Enter your email to reset your password
+      </Text>
       <TextInput
-        style={styles.input}
+        className="border border-gray-300 p-4 mb-4 rounded bg-gray-50 text-gray-800"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
         placeholder="Enter your email"
         placeholderTextColor="#aaa"
       />
-      <TouchableOpacity style={styles.button} onPress={handleForgotPassword}>
-        <Text style={styles.buttonText}>Send OTP</Text>
+      <TouchableOpacity
+        className="bg-cyan-800 p-4 rounded items-center mb-5"
+        onPress={handleForgotPassword}
+      >
+        <Text className="text-white text-lg font-bold">Send OTP</Text>
       </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "white",
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 30,
-    textAlign: "center",
-    color: "#333",
-  },
-  label: {
-    fontSize: 16,
-    marginBottom: 10,
-    color: "#555",
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    padding: 15,
-    marginBottom: 20,
-    borderRadius: 5,
-    backgroundColor: "#f9f9f9",
-    color: "#333",
-  },
-  button: {
-    backgroundColor: "#4CAF50",
-    padding: 15,
-    borderRadius: 5,
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-});
