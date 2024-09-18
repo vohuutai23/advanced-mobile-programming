@@ -1,41 +1,91 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
-import { useRouter } from "expo-router";
+// // import { useRouter } from "expo-router";
+// // import { useEffect } from "react";
 
-export default function ProfilePage() {
+// // export default function Index() {
+// //   const router = useRouter();
+
+// //   useEffect(() => {
+// //     setTimeout(() => {
+// //       router.replace("/(tabs)/LoginPage");
+// //     }, 0);
+// //   }, [router]);
+
+// //   return null;
+// // }
+
+import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export default function Index() {
   const router = useRouter();
-  const avatar = require("../../assets/images/icon.png");
-  const [timeLeft, setTimeLeft] = useState<number>(10);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setTimeLeft(10);
-    const interval = setInterval(() => {
-      setTimeLeft((prevTime) => {
-        if (prevTime <= 1) {
-          clearInterval(interval);
-          setTimeout(() => {
-            router.push("/(tabs)/LoginPage");
-          }, 0);
-          return 0;
+    const checkLoginStatus = async () => {
+      try {
+        const accessToken = await AsyncStorage.getItem("accessToken");
+        console.log("accessToken Index", accessToken);
+        if (accessToken) {
+          router.replace("/(tabs)/ProfilePage");
+        } else {
+          router.replace("/(tabs)/LoginPage");
         }
-        return prevTime - 1;
-      });
-    }, 1000);
+      } catch (error) {
+        console.error("Error checking login status:", error);
+        router.replace("/(tabs)/LoginPage");
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-    return () => clearInterval(interval);
+    checkLoginStatus();
   }, [router]);
 
-  return (
-    <View className="flex-1 justify-center items-center bg-gray-100 px-5">
-      <Image source={avatar} className="w-30 h-30 rounded-full mb-5" />
-      <Text className="text-2xl font-bold text-gray-800 mb-2">Võ Hữu Tài</Text>
-      <Text className="text-base text-gray-600 mb-1">
-        21110294@student.hcmute.edu.vn
-      </Text>
-      <Text className="text-base text-gray-600 mb-5">Phone: 0353199067</Text>
-      <Text className="text-lg text-red-500 italic">
-        Redirecting to Login page in {timeLeft} seconds...
-      </Text>
-    </View>
-  );
+  if (isLoading) {
+    return null;
+  }
+
+  return null;
 }
+// import React, { useEffect, useState } from "react";
+// import { NavigationContainer } from "@react-navigation/native";
+// import AsyncStorage from "@react-native-async-storage/async-storage";
+// import AppNavigator from "../navigation/AppNavigator";
+// import Loading from "../../components/Loading";
+// import LoginPage from "../(tabs)/LoginPage";
+
+// export default function App() {
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+//   useEffect(() => {
+//     const checkToken = async () => {
+//       try {
+//         const token = await AsyncStorage.getItem("accessToken");
+//         if (token) {
+//           setIsAuthenticated(true);
+//         } else {
+//           setIsAuthenticated(false);
+//         }
+//       } catch (error) {
+//         console.log("Error checking token", error);
+//         setIsAuthenticated(false);
+//       } finally {
+//         setIsLoading(false);
+//       }
+//     };
+
+//     checkToken();
+//   }, []);
+
+//   if (isLoading) {
+//     return <Loading />;
+//   }
+
+//   return (
+//     <NavigationContainer>
+//       {isAuthenticated ? <AppNavigator /> : <LoginPage />}
+//     </NavigationContainer>
+//   );
+// }

@@ -21,7 +21,6 @@ export default function ForgotPasswordPage() {
 
       if (response.ok) {
         Alert.alert("Success", "OTP sent to your email.");
-        // Redirect to ResetPasswordPage and pass the email as a parameter
         router.push({ pathname: "/(tabs)/ResetPassword", params: { email } });
       } else {
         Alert.alert("Error", "Failed to send OTP. Try again.");
@@ -32,7 +31,7 @@ export default function ForgotPasswordPage() {
   };
 
   return (
-    <View className="flex-1 justify-center p-5 bg-white">
+    <View className="flex-1 justify-center px-5 bg-white">
       <Text className="text-2xl font-bold mb-8 text-center text-gray-800">
         Forgot Password
       </Text>
@@ -48,7 +47,7 @@ export default function ForgotPasswordPage() {
         placeholderTextColor="#aaa"
       />
       <TouchableOpacity
-        className="bg-green-600 p-4 rounded items-center mb-5"
+        className="bg-cyan-800 p-4 rounded items-center mb-5"
         onPress={handleForgotPassword}
       >
         <Text className="text-white text-lg font-bold">Send OTP</Text>
