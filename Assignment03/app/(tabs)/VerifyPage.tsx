@@ -1,48 +1,50 @@
 import React, { useState } from "react";
 import { View, Text, TextInput, Alert, TouchableOpacity } from "react-native";
-import { useRouter, useLocalSearchParams } from "expo-router"; // Sử dụng useLocalSearchParams
+import { useRouter, useLocalSearchParams } from "expo-router";
 
-export default function ResetPasswordPage() {
+export default function VerifyPage() {
   const [otp, setOtp] = useState<string>("");
-  const [newPassword, setNewPassword] = useState<string>("");
+  const { email } = useLocalSearchParams();
   const router = useRouter();
-  const { email } = useLocalSearchParams(); // Lấy email từ params
 
-  const handleResetPassword = async () => {
+  const handleVerify = async () => {
     try {
       const response = await fetch(
-        "https://food-app-api-demo.onrender.com/api/users/reset-password",
+        "https://realtime-chat-app-api-tbaf.onrender.com/v1/user/verify",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ email, otp, newPassword }),
+          body: JSON.stringify({ email, otp }),
         }
       );
 
       if (response.ok) {
-        Alert.alert("Success", "Password has been reset successfully.");
+        Alert.alert("Success", "OTP verified successfully.");
         router.push("/(tabs)/LoginPage");
       } else {
-        Alert.alert(
-          "Error",
-          "Failed to reset password. Check your OTP or try again."
-        );
+        Alert.alert("Error", "Invalid OTP. Please try again.");
       }
     } catch (error) {
       Alert.alert("Error", "An error occurred. Please try again.");
     }
   };
 
+  const emailString = Array.isArray(email) ? email[0] : email || "";
+
   return (
     <View className="flex-1 justify-center px-5 bg-white">
       <Text className="text-2xl font-bold mb-8 text-center text-gray-800">
-        Reset Password
+        Verify Account
       </Text>
-      <Text className="text-base mb-2 text-gray-600">
-        Enter the OTP sent to your email
-      </Text>
+      <TextInput
+        className="border border-gray-300 p-4 mb-4 rounded bg-gray-50 text-gray-800"
+        value={emailString}
+        editable={false}
+        placeholder="Email"
+        placeholderTextColor="#aaa"
+      />
       <TextInput
         className="border border-gray-300 p-4 mb-4 rounded bg-gray-50 text-gray-800"
         value={otp}
@@ -51,19 +53,11 @@ export default function ResetPasswordPage() {
         placeholder="Enter OTP"
         placeholderTextColor="#aaa"
       />
-      <TextInput
-        className="border border-gray-300 p-4 mb-4 rounded bg-gray-50 text-gray-800"
-        value={newPassword}
-        onChangeText={setNewPassword}
-        secureTextEntry
-        placeholder="Enter new password"
-        placeholderTextColor="#aaa"
-      />
       <TouchableOpacity
         className="bg-cyan-800 p-4 rounded items-center mb-5"
-        onPress={handleResetPassword}
+        onPress={handleVerify}
       >
-        <Text className="text-white text-lg font-bold">Reset Password</Text>
+        <Text className="text-white text-lg font-bold">Verify OTP</Text>
       </TouchableOpacity>
     </View>
   );
